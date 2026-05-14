@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema(
         },
 
         roles: {
-            type: String,
+            type: [String],
             enum: [ROLE_CLIENT,ROLE_FREELANCER],
             default: ROLE_FREELANCER,
         },

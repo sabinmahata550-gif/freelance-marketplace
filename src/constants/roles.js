@@ -1,2 +1,10 @@
 export const ROLE_CLIENT="CLIENT";
 export const ROLE_FREELANCER="FREELANCER";
+
+export const STATUS_OPEN="OPEN";
+export const STATUS_IN_PROGRESS="IN_PROGRESS";
+export const STATUS_COMPLETED="COMPLETED";
+
+export const STATUS_PENDING="PENDING";
+export const STATUS_ACCEPTED="ACCEPTED";
+export const STATUS_REJECTED="REJECTED";
