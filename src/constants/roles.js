@@ -1,0 +1,2 @@
+export const ROLE_CLIENT="CLIENT";
+export const ROLE_FREELANCER="FREELANCER";
