@@ -41,4 +41,26 @@ const getApplications = async (req, res) => {
   }
 };
 
-export default { applyJob, getApplications };
+const updateApplicationStatus = async (req, res) => {
+  try {
+
+    const application = await applicationService.updateApplicationStatus(
+      req.params.id,
+      req.body.status,
+      req.user.id
+    );
+
+    res.status(200).json({
+      message: "Application status updated",
+      application,
+    });
+
+  } catch (error) {
+
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
+export default { applyJob, getApplications,updateApplicationStatus };

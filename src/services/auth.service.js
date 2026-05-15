@@ -19,7 +19,9 @@ const Register = async (data) => {
         name: newUser.name,
         email: newUser.email,
         address: newUser.address,
-        roles: newUser.roles
+        roles: newUser.roles,
+        phone: newUser.phone
+
     };;
 };
 
@@ -27,7 +29,7 @@ const Login = async (data) => {
     const user = await User.findOne({
         $or: [
             { email: data.email },
-            { phonenumber: data.phonenumber }
+            { phone: data.phone }
         ]
     });
     if (!user) {
@@ -38,7 +40,7 @@ const Login = async (data) => {
     }
 
     const isMatch = await bcrypt.compare(data.password, user.password);
-  
+
 
     if (!isMatch) {
         throw {
@@ -52,7 +54,8 @@ const Login = async (data) => {
         name: user.name,
         email: user.email,
         address: user.address,
-        roles: user.roles
+        roles: user.roles,
+        phone: user.phone
     };
 };
 

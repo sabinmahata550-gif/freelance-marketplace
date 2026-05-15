@@ -1,5 +1,6 @@
 export const ROLE_CLIENT="CLIENT";
 export const ROLE_FREELANCER="FREELANCER";
+export const ROLE_ADMIN="ADMIN";
 
 export const STATUS_OPEN="OPEN";
 export const STATUS_IN_PROGRESS="IN_PROGRESS";

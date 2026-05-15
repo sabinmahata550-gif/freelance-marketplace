@@ -6,9 +6,9 @@ import { ROLE_CLIENT, ROLE_FREELANCER } from "../constants/roles.js";
 
 const jobRouter=Router();
 
-jobRouter.post("/",auth,roleBasedAuth(ROLE_FREELANCER),jobController.createJob)
+jobRouter.post("/",auth,roleBasedAuth(ROLE_CLIENT),jobController.createJob)
 jobRouter.get("/",auth,jobController.getAllJobs)
-jobRouter.put("/:id",auth,roleBasedAuth(ROLE_FREELANCER),jobController.updateJob)
+jobRouter.put("/:id",auth,roleBasedAuth(ROLE_CLIENT),jobController.updateJob)
 jobRouter.get("/:id",auth,jobController.getSingleJob)
 
 jobRouter.delete("/:id",jobController.deleteJob)

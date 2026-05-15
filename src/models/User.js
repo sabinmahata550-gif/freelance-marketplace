@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ROLE_CLIENT, ROLE_FREELANCER } from "../constants/roles.js";
+import { ROLE_ADMIN, ROLE_CLIENT, ROLE_FREELANCER } from "../constants/roles.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -22,17 +22,25 @@ const userSchema = new mongoose.Schema(
             trim: true,
         },
 
-        phonenumber: {
+
+        phone: {
             type: String,
             required: [true, "phone number is required"],
             trim: true,
         },
 
         address: {
+            street: {
+                type: String,
+
+            },
             province: {
                 type: String,
             },
+            district: {
+                type: String,
 
+            },
             city: {
                 type: String,
             },
@@ -44,7 +52,7 @@ const userSchema = new mongoose.Schema(
 
         roles: {
             type: [String],
-            enum: [ROLE_CLIENT,ROLE_FREELANCER],
+            enum: [ROLE_CLIENT, ROLE_FREELANCER,ROLE_ADMIN],
             default: ROLE_FREELANCER,
         },
     },
