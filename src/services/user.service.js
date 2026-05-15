@@ -1,6 +1,5 @@
-
-import { email } from "zod";
 import User from "../models/User.js";
+import uplodFile from "../util/fileuploader.js";
 
 const updateRole = async (userId, roles) => {
 
@@ -15,18 +14,16 @@ const updateRole = async (userId, roles) => {
   await user.save();
 
   return {
-    name:user.name,
-    email:user.email,
-    phone:user.phone,
-    address:user.address,
-    roles:user.roles
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    address: user.address,
+    roles: user.roles
   };
 };
 
-
-
 const getAllUsers = async () => {
-  return await User.find();
+  return await User.find().select("-password");
 };
 
 const deleteUser = async (id) => {
@@ -38,12 +35,42 @@ const deleteUser = async (id) => {
   }
 
   await User.findByIdAndDelete(id);
+};
 
-  return;
+const getProfile = async (id) => {
+
+  return await User.findById(id)
+    .select("-password");
+
+};
+
+const updateProfile = async (userId, file) => {
+  const uploadedFiles = await uplodFile([file])
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      profileImageUrl: uploadedFiles[0].url
+    },
+    {
+      returnDocument: "after"
+    }
+  ).select("-password");
+
+  return updatedUser;
+
+};
+
+const deleteProfile = async (id) => {
+
+  await User.findByIdAndDelete(id);
+
 };
 
 export default {
-  getAllUsers,
   updateRole,
+  getAllUsers,
   deleteUser,
+  getProfile,
+  updateProfile,
+  deleteProfile
 };

@@ -55,6 +55,9 @@ const userSchema = new mongoose.Schema(
             enum: [ROLE_CLIENT, ROLE_FREELANCER,ROLE_ADMIN],
             default: ROLE_FREELANCER,
         },
+         profileImageUrl:{
+            type:String,
+         }
     },
     { timestamps: true }
 );

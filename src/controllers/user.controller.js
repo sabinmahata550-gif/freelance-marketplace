@@ -26,8 +26,8 @@ const updateRole = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
 
-    const users = await userService.getAllUsers();
 
+    const users = await userService.getAllUsers();
     res.status(200).json({
       message: "Users fetched successfully",
       users,
@@ -60,10 +60,10 @@ const deleteUser = async (req, res) => {
 
 
 
-export const getProfile = async (req, res) => {
+const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-
+    const user = await userService.getProfile(req.user.id);
+    console.log(user)
     res.status(200).json({
       message: "Profile fetched successfully",
       user,
@@ -75,13 +75,13 @@ export const getProfile = async (req, res) => {
     });
   }
 };
-export const updateProfile = async (req, res) => {
+
+const updateProfile = async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await userService.updateProfile(
       req.user.id,
-      req.body,
-      { new: true }
-    ).select("-password");
+      req.file,
+    )
 
     res.status(200).json({
       message: "Profile updated successfully",
@@ -95,9 +95,9 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const deleteProfile = async (req, res) => {
+const deleteProfile = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.user.id);
+    await userService.deleteProfile(req.user.id);
 
     res.status(200).json({
       message: "Profile deleted successfully",
