@@ -3,22 +3,24 @@ import { Router } from "express";
 import auth from "../middlewares/auth.js";
 import roleBasedAuth from "../middlewares/roleBasedAuth.js";
 import { ROLE_CLIENT, ROLE_FREELANCER } from "../constants/roles.js";
+import validate from "../middlewares/validator.js";
+import { applyJobSchema } from "../lib/schemas/application.schema.js";
 const applicationRouter=Router()
 
 applicationRouter.post(
   "/apply",
   auth,
+  validate(applyJobSchema),
   roleBasedAuth(ROLE_FREELANCER),
  applicationController.applyJob
 );
 
 applicationRouter.get(
-  "/:jobId",
+  "/",
   auth,
   roleBasedAuth(ROLE_FREELANCER),
- applicationController.getApplications
+  applicationController.getApplications
 );
-
 
 applicationRouter.patch(
   "/:id/status",

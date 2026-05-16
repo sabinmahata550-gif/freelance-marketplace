@@ -20,11 +20,46 @@ const applyJob = async (jobId, freelancerId, proposal) => {
   return application;
 };
 
-const getApplications = async (jobId) => {
-  return await Application.find({ jobId })
-    .populate("freelancerId", "username email roles");
-};
+const getApplications = async (query) => {
 
+  const limit = query.limit?? 10;
+
+  const offset = query.offset?? 0;
+
+  const filters = {};
+
+  let sort = {};
+
+  const { status, jobId } = query;
+
+  // FILTER BY STATUS
+  if (status) {
+
+    filters.status = status;
+  }
+
+  // FILTER BY JOB
+  if (jobId) {
+
+    filters.jobId = jobId;
+  }
+
+  // SORT
+  if (query.sort === "latest") {
+    sort = { createdAt: -1 };
+  }
+
+  if (query.sort === "oldest") {
+    sort = { createdAt: 1 };
+  }
+
+  return await Application.find(filters)
+    .sort(sort)
+    .limit(limit)
+    .skip(offset)
+    .populate("freelancerId", "name email roles")
+    .populate("jobId", "title budget");
+};
 
 const updateApplicationStatus = async (
   applicationId,

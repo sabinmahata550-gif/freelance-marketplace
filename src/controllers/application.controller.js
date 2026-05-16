@@ -23,11 +23,11 @@ const applyJob = async (req, res) => {
 
 
 const getApplications = async (req, res) => {
+
   try {
 
-    const applications = await applicationService.getApplications(
-      req.params.jobId
-    );
+    const applications =
+      await applicationService.getApplications(req.query);
 
     res.status(200).json({
       message: "Applications fetched successfully",
@@ -35,6 +35,7 @@ const getApplications = async (req, res) => {
     });
 
   } catch (error) {
+
     res.status(400).json({
       error: error.message,
     });

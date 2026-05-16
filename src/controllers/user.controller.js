@@ -27,7 +27,7 @@ const getAllUsers = async (req, res) => {
   try {
 
 
-    const users = await userService.getAllUsers();
+    const users = await userService.getAllUsers(req.query);
     res.status(200).json({
       message: "Users fetched successfully",
       users,

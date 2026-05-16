@@ -21,7 +21,7 @@ const createJob = async (req, res) => {
 
 const getAllJobs = async (req, res) => {
   try {
-    const jobs = await jobService.getAllJobs();
+    const jobs = await jobService.getAllJobs(req.query);
 
     res.status(200).json({
       message: "All jobs fetched successfully",

@@ -22,8 +22,47 @@ const updateRole = async (userId, roles) => {
   };
 };
 
-const getAllUsers = async () => {
-  return await User.find().select("-password");
+const getAllUsers = async (query) => {
+
+  const limit = query.limit ?? 10;
+
+  const offset = query.offset ?? 0;
+
+  const filters = {};
+
+  let sort = {};
+
+  const { name, role } = query;
+
+  // SEARCH BY NAME
+  if (name) {
+
+    filters.name = {
+      $regex: name,
+      $options: "i",
+    };
+  }
+
+  // FILTER BY ROLE
+  if (role) {
+
+    filters.roles = role;
+  }
+
+  // SORT
+  if (query.sort === "latest") {
+    sort = { createdAt: -1 };
+  }
+
+  if (query.sort === "oldest") {
+    sort = { createdAt: 1 };
+  }
+
+  return await User.find(filters)
+    .sort(sort)
+    .limit(limit)
+    .skip(offset)
+    .select("-password");
 };
 
 const deleteUser = async (id) => {
