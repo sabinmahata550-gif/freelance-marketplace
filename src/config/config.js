@@ -10,7 +10,9 @@ const config = {
         CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || "",
         CLOUDINARY_API_SECRECT: process.env.CLOUDINARY_API_SECRECT || "",
 
-    }
+    },
+    appiUrl: process.env.API_URL || "",
+    resendEmailApiKey: process.env.RESEND_EMAIL_KEY || ""
 
 }
 

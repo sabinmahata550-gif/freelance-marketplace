@@ -7,6 +7,7 @@ import applicationRouter from './routes/application.route.js'
 import userRouter from './routes/user.route.js'
 import connectCloudinary from './config/cloudinary.js'
 import cookieParser from 'cookie-parser'
+import resetPasswordRouter from './routes/resetPassword.route.js'
 
 
 const app = express()
@@ -18,7 +19,7 @@ app.use("/api", authRouter)
 app.use("/api/jobs", jobRouter)
 app.use("/api/application", applicationRouter);
 app.use("/api/user", userRouter);
-
+app.use("/api/password", resetPasswordRouter);
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
