@@ -49,7 +49,27 @@ const deleteJob = async (id) => {
   return await Job.findByIdAndDelete(id);
 };
 
+const getAverageBudget =async () => {
+  return await Job.aggregate([
+
+    {
+      $group: {
+
+        _id: null,
+
+        averageBudget: {
+          $avg: "$budget"
+        }
+
+      }
+    }
+
+  ]);
+
+};
+
 export default {
+  getAverageBudget,
   createJob,
   getAllJobs,
   getSingleJob,

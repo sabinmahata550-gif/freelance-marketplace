@@ -85,7 +85,31 @@ const deleteJob = async (req, res) => {
   }
 };
 
+const getAverageBudget =
+async (req, res) => {
+
+  try {
+
+    const averageBudget =
+      await jobService
+        .getAverageBudget();
+
+    res.status(200).json({
+      averageBudget,
+    });
+
+  } catch (error) {
+
+    res.status(400).json({
+      error: error.message,
+    });
+
+  }
+
+};
+
 export default {
+  getAverageBudget,
   createJob,
   getAllJobs,
   getSingleJob,

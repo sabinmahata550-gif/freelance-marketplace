@@ -110,7 +110,28 @@ const deleteProfile = async (req, res) => {
   }
 };
 
+const getTotalUsers = async (req, res) => {
+
+    try {
+
+      const totalUsers =await userService.getTotalUsers();
+
+      res.status(200).json({
+        totalUsers,
+      });
+
+    } catch (error) {
+
+      res.status(400).json({
+        error: error.message,
+      });
+
+    }
+
+  };
+
 export default {
+  getTotalUsers,
   getAllUsers,
   deleteUser,
   updateRole,

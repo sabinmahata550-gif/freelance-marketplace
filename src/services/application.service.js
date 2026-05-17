@@ -94,5 +94,36 @@ const updateApplicationStatus = async (
   return application;
 };
 
+const result =await Application.aggregate([
 
-export default { applyJob, getApplications, updateApplicationStatus };
+    // GROUP APPLICATIONS
+    {
+      $group: {
+
+        _id: "$jobId",
+
+        totalApplications: {
+          $sum: 1
+        }
+
+      }
+    },
+
+    // GET JOB DETAILS
+    {
+      $lookup: {
+
+        from: "jobs",
+
+        localField: "_id",
+
+        foreignField: "_id",
+
+        as: "job"
+
+      }
+    }
+
+]);
+
+export default { applyJob, getApplications, updateApplicationStatus,getApplicationStats};

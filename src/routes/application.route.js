@@ -22,11 +22,18 @@ applicationRouter.get(
   applicationController.getApplications
 );
 
+applicationRouter.get(
+  "/stats",
+  applicationController.getApplicationStats
+);
+
 applicationRouter.patch(
   "/:id/status",
   auth,
   roleBasedAuth(ROLE_CLIENT),
   applicationController.updateApplicationStatus
 );
+
+
 
 export default applicationRouter

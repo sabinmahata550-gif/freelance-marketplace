@@ -4,7 +4,7 @@ import resetPasswordServices from "../services/resetPassword.services.js";
 const forgotPassword = async (req, res) => {
 
     try {
-
+    
         const data =await resetPasswordServices.forgotPassword(req.body.email);
 
         res.status(200).json(

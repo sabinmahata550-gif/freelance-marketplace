@@ -64,4 +64,24 @@ const updateApplicationStatus = async (req, res) => {
   }
 };
 
-export default { applyJob, getApplications,updateApplicationStatus };
+const getApplicationStats =async (req, res) => {
+
+  try {
+
+    const stats =await applicationService.getApplicationStats();
+
+    res.status(200).json({
+      stats,
+    });
+
+  } catch (error) {
+
+    res.status(400).json({
+      error: error.message,
+    });
+
+  }
+
+};
+
+export default { applyJob, getApplications,updateApplicationStatus ,getApplicationStats};

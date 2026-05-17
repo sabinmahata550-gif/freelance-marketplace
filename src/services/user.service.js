@@ -105,7 +105,22 @@ const deleteProfile = async (id) => {
 
 };
 
+const getTotalUsers = async () => {
+
+  const totalUsers =await User.aggregate([
+
+      {
+        $count: "totalUsers"
+      }
+
+    ]);
+
+  return totalUsers;
+};
+
 export default {
+  getTotalUsers,
+  getAllUsers,
   updateRole,
   getAllUsers,
   deleteUser,

@@ -9,7 +9,6 @@ import sendEmail from "../util/email.js";
 const forgotPassword = async (email) => {
 
     const user = await User.findOne({ email });
-
     if (!user) {
         throw new Error("User not found");
     }

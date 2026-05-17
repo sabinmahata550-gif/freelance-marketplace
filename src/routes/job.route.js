@@ -14,5 +14,9 @@ jobRouter.put("/:id",auth,roleBasedAuth(ROLE_CLIENT),jobController.updateJob)
 jobRouter.get("/:id",auth,jobController.getSingleJob)
 
 jobRouter.delete("/:id",jobController.deleteJob)
+jobRouter.get(
+  "/average-budget",
+  jobController.getAverageBudget
+);
 
 export default jobRouter;

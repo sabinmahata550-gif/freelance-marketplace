@@ -24,6 +24,10 @@ userRouter.get(
   userController.getAllUsers
 );
 
+userRouter.get(
+  "/total-users",
+  userController.getTotalUsers
+);
 userRouter.patch(
   "/:id/role",
   auth,
