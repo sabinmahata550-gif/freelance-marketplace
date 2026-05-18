@@ -1,6 +1,7 @@
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";
-const applyJob = async (jobId, freelancerId, proposal) => {
+import aiService from "./ai.service.js";
+const applyJob = async (jobId, freelancerId) => {
 
   const existing = await Application.findOne({
     jobId,
@@ -11,20 +12,31 @@ const applyJob = async (jobId, freelancerId, proposal) => {
     throw new Error("You have already applied for this job");
   }
 
-  const application = await Application.create({
+  const job = await Job.findById(jobId);
+
+  if (!job) {
+    throw new Error("Job not found");
+  }
+
+  const jobTitle = job.title;
+  const description = job.description;
+
+  const proposal = await aiService.generateProposal(
+    jobTitle,
+    description
+  );
+
+  return await Application.create({
     jobId,
     freelancerId,
     proposal,
   });
-
-  return application;
 };
-
 const getApplications = async (query) => {
 
-  const limit = query.limit?? 10;
+  const limit = query.limit ?? 10;
 
-  const offset = query.offset?? 0;
+  const offset = query.offset ?? 0;
 
   const filters = {};
 
@@ -79,8 +91,8 @@ const updateApplicationStatus = async (
 
   if (!job) {
     throw new Error("Job not found");
-  }  
-  
+  }
+
   if (job.clientId.toString() !== userId) {
     throw new Error("Access denied");
   }
@@ -94,14 +106,17 @@ const updateApplicationStatus = async (
   return application;
 };
 
-const result =await Application.aggregate([
+const getApplicationStats = async () => {
+
+  return await Application.aggregate([
 
     // GROUP APPLICATIONS
+    // same jobs combine
     {
       $group: {
 
         _id: "$jobId",
-
+        // sum=count 
         totalApplications: {
           $sum: 1
         }
@@ -110,6 +125,7 @@ const result =await Application.aggregate([
     },
 
     // GET JOB DETAILS
+    // populate/join
     {
       $lookup: {
 
@@ -124,6 +140,6 @@ const result =await Application.aggregate([
       }
     }
 
-]);
-
-export default { applyJob, getApplications, updateApplicationStatus,getApplicationStats};
+  ]);
+}
+export default { applyJob, getApplications, updateApplicationStatus, getApplicationStats };

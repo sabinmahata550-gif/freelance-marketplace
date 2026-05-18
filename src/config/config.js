@@ -12,7 +12,8 @@ const config = {
 
     },
     appiUrl: process.env.API_URL || "",
-    resendEmailApiKey: process.env.RESEND_EMAIL_KEY || ""
+    resendEmailApiKey: process.env.RESEND_EMAIL_KEY || "",
+    geminiApikey: process.env.GEMINI_API_KEY || "",
 
 }
 

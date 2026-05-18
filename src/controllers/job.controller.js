@@ -85,14 +85,10 @@ const deleteJob = async (req, res) => {
   }
 };
 
-const getAverageBudget =
-async (req, res) => {
+const getAverageBudget =async (req, res) => {
+ try {
 
-  try {
-
-    const averageBudget =
-      await jobService
-        .getAverageBudget();
+    const averageBudget = await jobService.getAverageBudget();
 
     res.status(200).json({
       averageBudget,

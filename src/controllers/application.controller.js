@@ -6,7 +6,6 @@ const applyJob = async (req, res) => {
     const application = await applicationService.applyJob(
       req.body.jobId,
       req.user.id,
-      req.body.proposal
     );
 
     res.status(201).json({

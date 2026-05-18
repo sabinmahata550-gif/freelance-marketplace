@@ -6,17 +6,18 @@ import { ROLE_CLIENT, ROLE_FREELANCER } from "../constants/roles.js";
 import validate from "../middlewares/validator.js";
 import { createJobSchema } from "../lib/schemas/job.schema.js";
 
-const jobRouter=Router();
+const jobRouter = Router();
 
-jobRouter.post("/",auth,validate(createJobSchema),roleBasedAuth(ROLE_CLIENT),jobController.createJob)
-jobRouter.get("/",auth,jobController.getAllJobs)
-jobRouter.put("/:id",auth,roleBasedAuth(ROLE_CLIENT),jobController.updateJob)
-jobRouter.get("/:id",auth,jobController.getSingleJob)
-
-jobRouter.delete("/:id",jobController.deleteJob)
+jobRouter.post("/", auth, validate(createJobSchema), roleBasedAuth(ROLE_CLIENT), jobController.createJob)
+jobRouter.get("/", auth, jobController.getAllJobs)
 jobRouter.get(
   "/average-budget",
   jobController.getAverageBudget
 );
+jobRouter.put("/:id", auth, roleBasedAuth(ROLE_CLIENT), jobController.updateJob)
+jobRouter.get("/:id", auth, jobController.getSingleJob)
+
+jobRouter.delete("/:id", jobController.deleteJob)
+
 
 export default jobRouter;

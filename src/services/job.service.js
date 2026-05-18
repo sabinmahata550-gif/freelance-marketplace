@@ -49,9 +49,15 @@ const deleteJob = async (id) => {
   return await Job.findByIdAndDelete(id);
 };
 
-const getAverageBudget =async () => {
-  return await Job.aggregate([
+// | `_id` value | Meaning                 |
+// | ----------- | ----------------------- |
+// | `"$jobId"`  | group by job            |
+// | `"$status"` | group by status         |
+// | `null`      | all documents one group |
 
+const getAverageBudget = async () => {
+  return await Job.aggregate([
+// same value haru eutai thau ma rakha
     {
       $group: {
 
